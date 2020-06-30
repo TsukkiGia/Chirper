@@ -90,7 +90,7 @@ public class TimelineActivity extends AppCompatActivity {
             //modify model
 
             tweets.add(0, tweet);
-            
+
             //update the recyclerview with the tweet
             adapter.notifyItemInserted(0);
             rvTweets.smoothScrollToPosition(0);

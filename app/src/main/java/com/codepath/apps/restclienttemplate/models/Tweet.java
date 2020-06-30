@@ -1,5 +1,7 @@
 package com.codepath.apps.restclienttemplate.models;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +18,7 @@ public class Tweet {
     public String body;
     public String createdAt;
     public User user;
+    public String mediaURL;
 
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         //how do you create an object within the method
@@ -23,6 +26,12 @@ public class Tweet {
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+        try {
+            tweet.mediaURL = jsonObject.getJSONObject("entities").getJSONArray("media").getJSONObject(0).getString("media_url");
+            Log.i("HELP", tweet.mediaURL);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return tweet;
 
     }
