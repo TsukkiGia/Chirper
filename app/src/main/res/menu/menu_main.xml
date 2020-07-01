@@ -4,7 +4,27 @@
 
     <item
         android:id="@+id/compose"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:icon="@drawable/ic_vector_compose"
+        android:tint="@android:color/white"
+        app:tint="@android:color/white"
         android:title="Compose"
+        app:showAsAction="always"
+        app:iconTint="@android:color/white"
+        
+        />
+    <item
+        android:id="@+id/twittericon"
+        android:visible="true"
+        android:icon="@drawable/ic_launcher_twitter"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:title="icon"
+        />
+    <item
+        android:id="@+id/miActionProgress"
+        android:title="Loading..."
+        android:visible="false"
+        android:orderInCategory="100"
         app:showAsAction="always" />
+
 </menu>
