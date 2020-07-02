@@ -73,6 +73,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvBody;
         TextView tvTimeSince;
         ImageView ivMedia;
+        ImageView ivLike;
+        ImageView ivRetweet;
+        ImageView ivReply;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,6 +84,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody = itemView.findViewById(R.id.tvBody);
             tvTimeSince = itemView.findViewById(R.id.tvTimeSince);
             ivMedia = itemView.findViewById(R.id.ivMedia);
+            //ivLike = itemView.findViewById(R.id.ivLike);
+            //ivRetweet = itemView.findViewById(R.id.ivRetweet);
+            //ivReply = itemView.findViewById(R.id.ivReply);
+
         }
 
         public String getRelativeTimeAgo(String rawJsonDate) {
@@ -104,14 +111,16 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody.setText(tweet.body);
             tvScreenName.setText(tweet.user.screenName);
             Glide.with(context).load(tweet.user.publicImageURL).into(ivProfileImage);
-
             tvTimeSince.setText(getRelativeTimeAgo(tweet.createdAt));
             if (tweet.mediaURL != null) {
                 Glide.with(context).load(tweet.mediaURL).into(ivMedia);
-
-            } else {
+            }
+            else {
                 ivMedia.setVisibility(View.GONE);
             }
+            //ivReply.setImageResource(R.drawable.reply);
+            //ivRetweet.setImageResource(R.drawable.ic_vector_retweet_stroke);
+            //ivLike.setImageResource(R.drawable.ic_vector_heart_stroke);
         }
     }
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -32,7 +31,9 @@
         android:layout_width="344dp"
         android:layout_height="257dp"
         android:layout_below="@+id/tvBody"
+        android:layout_alignStart="@+id/tvBody"
         android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="5dp"
         tools:srcCompat="@tools:sample/avatars" />
@@ -49,7 +50,6 @@
 
     <TextView
         android:id="@+id/tvTimeSince"
-
         android:layout_width="106dp"
         android:layout_height="21dp"
         android:layout_alignParentEnd="true"
@@ -58,4 +58,6 @@
         android:layout_toEndOf="@+id/tvScreenName"
         android:gravity="right"
         tools:text="5 min ago" />
+
+
 </RelativeLayout>
