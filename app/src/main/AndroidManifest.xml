@@ -14,7 +14,9 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UserPage"></activity>
+        <activity android:name=".FollowingList"></activity>
+        <activity android:name=".FollowerList" />
+        <activity android:name=".UserPage" />
         <activity android:name=".TweetDetails" />
         <activity android:name=".ComposeActivity" />
         <activity android:name=".TimelineActivity" />
