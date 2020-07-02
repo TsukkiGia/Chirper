@@ -1,101 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvRoot"
-
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
     android:layout_margin="10dp"
+    android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
 
-    tools:context=".ComposeActivity">
-
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_margin="10dp"
-        android:layout_marginTop="6dp"
-        android:layout_toEndOf="@+id/imageView"
-        android:text="TextView"
-        android:textColor="#000000"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvDisplayName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvName"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="0dp"
-        android:layout_toEndOf="@+id/imageView"
-        android:text="TextView"
-        android:textSize="12sp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layoutView"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="5dp"
-        card_view:counterEnabled="true"
-        card_view:counterMaxLength="140">
 
-        <EditText
-            android:id="@+id/etCompose"
+        tools:context=".ComposeActivity">
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="6dp"
+            android:layout_toEndOf="@+id/ivProfileImage"
+            android:text="TextView"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvDisplayName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvName"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/ivProfileImage"
+            android:text="TextView"
+            android:textSize="12sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/edit_text_background"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="@string/what_s_on_your_mind"
-            android:inputType="textMultiLine"
-            android:minLines="5"
-            android:padding="10dp" />
+            android:layout_marginTop="90dp"
+            android:layout_marginEnd="5dp"
+            card_view:counterEnabled="true"
+            card_view:counterMaxLength="140">
+
+            <EditText
+                android:id="@+id/etCompose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/what_s_on_your_mind"
+                android:inputType="textMultiLine"
+                android:minLines="5"
+                android:padding="10dp" />
 
 
-    </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/btnTweet"
-        android:layout_width="89dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layoutView"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="0dp"
-        android:backgroundTint="#ff1da1f2"
-        android:bottomLeftRadius="30dp"
-        android:bottomRightRadius="30dp"
-        android:text="@string/tweet"
-        android:textColor="#FFFFFF"
-        android:topLeftRadius="30dp"
-        android:topRightRadius="30dp" />
+        <Button
+            android:id="@+id/btnTweet"
+            android:layout_width="89dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutView"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="6dp"
+            android:backgroundTint="#ff1da1f2"
+            android:bottomLeftRadius="30dp"
+            android:bottomRightRadius="30dp"
+            android:text="@string/tweet"
+            android:textColor="#FFFFFF"
+            android:topLeftRadius="30dp"
+            android:topRightRadius="30dp" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="57dp"
-        android:layout_height="52dp"
-        android:layout_alignStart="@+id/layoutView"
-        android:layout_marginStart="0dp"
-        android:layout_weight="1"
-        tools:srcCompat="@tools:sample/avatars" />
+        <ImageView
+            android:id="@+id/ivProfileImage"
+            android:layout_width="57dp"
+            android:layout_height="52dp"
+            android:layout_alignStart="@+id/layoutView"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            tools:srcCompat="@tools:sample/avatars" />
 
-</RelativeLayout>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

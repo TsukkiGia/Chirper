@@ -59,6 +59,7 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("max_id", maxId);
 		client.get(apiUrl, params, handler);
 	}
+
 	public void publishTweet(String tweetContent,JsonHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("statuses/update.json");
 		// Can specify query string params directly or through RequestParams.
@@ -66,11 +67,12 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("status", tweetContent);
 		client.post(apiUrl, params, "", handler);
 	}
-	public void replyTweet(String tweetContent,String screenName, Long tweetID, JsonHttpResponseHandler handler) {
+
+	public void replyTweet(String tweetContent, Long tweetID, JsonHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("statuses/update.json");
 		// Can specify query string params directly or through RequestParams.
 		RequestParams params = new RequestParams();
-		params.put("status", "@"+screenName+ " "+ tweetContent);
+		params.put("status", tweetContent);
 		params.put("in_reply_to_status_id", tweetID);
 		client.post(apiUrl, params, "", handler);
 	}
@@ -81,12 +83,14 @@ public class TwitterClient extends OAuthBaseClient {
 		RequestParams params = new RequestParams();
 		client.post(apiUrl, params, "", handler);
 	}
+
 	public void unreTweet(Long tweetID,JsonHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("statuses/unretweet/"+tweetID.toString()+".json");
 		// Can specify query string params directly or through RequestParams.
 		RequestParams params = new RequestParams();
 		client.post(apiUrl, params, "", handler);
 	}
+
 	public void likeTweet(Long tweetID,JsonHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("favorites/create.json");
 		// Can specify query string params directly or through RequestParams.
@@ -94,12 +98,21 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("id", tweetID);
 		client.post(apiUrl, params, "", handler);
 	}
+
 	public void unlikeTweet(Long tweetID,JsonHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("favorites/destroy.json");
 		// Can specify query string params directly or through RequestParams.
 		RequestParams params = new RequestParams();
 		params.put("id", tweetID);
 		client.post(apiUrl, params, "", handler);
+	}
+
+	public void myInfo(JsonHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("users/show.json");
+		// Can specify query string params directly or through RequestParams.
+		RequestParams params = new RequestParams();
+		params.put("screen_name", "seok_jinnie__");
+		client.get(apiUrl, params, handler);
 	}
 
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint

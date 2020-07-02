@@ -36,6 +36,8 @@ public class TweetDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tweet_details);
         final Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
+        final String liketag = getIntent().getStringExtra("like tag");
+        final String retweettag = getIntent().getStringExtra("retweet tag");
         client = TwitterApp.getRestClient(this);
         tvBody = findViewById(R.id.tvBody);
         tvName = findViewById(R.id.tvName);
@@ -43,10 +45,25 @@ public class TweetDetails extends AppCompatActivity {
         ivProfileImage = findViewById(R.id.ivProfileImage);
         ivMedia = findViewById(R.id.ivMedia);
         ivLike = findViewById(R.id.ivLike);
-        ivLike.setTag(R.drawable.ic_vector_heart_stroke);
-        ivReply = findViewById(R.id.ivReply);
         ivRetweet = findViewById(R.id.ivRetweet);
-        ivRetweet.setTag(R.drawable.ic_vector_retweet_stroke);
+        Boolean hello = liketag.equals(String.valueOf(R.drawable.ic_vector_heart_stroke));
+        if (liketag.equals(String.valueOf(R.drawable.ic_vector_heart_stroke))) {
+            ivLike.setTag(R.drawable.ic_vector_heart_stroke);
+        }
+        else {
+            ivLike.setImageDrawable(getResources().getDrawable(R.drawable.ic_vector_heart));
+            ivLike.setTag(R.drawable.ic_vector_heart);
+            ivLike.setColorFilter(Color.RED);
+        }
+        if (retweettag.equals(String.valueOf(R.drawable.ic_vector_retweet_stroke))) {
+            ivRetweet.setTag(R.drawable.ic_vector_retweet_stroke);
+        }
+        else {
+            ivRetweet.setImageDrawable(getResources().getDrawable(R.drawable.ic_vector_retweet));
+            ivRetweet.setTag(R.drawable.ic_vector_retweet);
+            ivRetweet.setColorFilter(Color.GREEN);
+        }
+        ivReply = findViewById(R.id.ivReply);
         tvBody.setText(tweet.body);
         tvName.setText(tweet.user.name);
         tvDisplayName.setText("@"+tweet.user.screenName);

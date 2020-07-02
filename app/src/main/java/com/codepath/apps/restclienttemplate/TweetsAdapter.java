@@ -104,7 +104,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvTimeSince = itemView.findViewById(R.id.tvTimeSince);
             ivMedia = itemView.findViewById(R.id.ivMedia);
             tvName = itemView.findViewById(R.id.tvName);
-            //itemView.setOnClickListener(this);
             ivLike = itemView.findViewById(R.id.ivLike);
             ivRetweet = itemView.findViewById(R.id.ivRetweet);
             ivReply = itemView.findViewById(R.id.ivReply);
@@ -114,8 +113,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody.setOnClickListener(this);
             ivLike.setTag(R.drawable.ic_vector_heart_stroke);
             ivRetweet.setTag(R.drawable.ic_vector_retweet_stroke);
-
-
         }
 
         public String getRelativeTimeAgo(String rawJsonDate) {
@@ -208,11 +205,14 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             };
             if (v.getId()==ivReply.getId()) {
                 Intent intent = new Intent(context, ComposeActivity.class);
+                intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
                 context.startActivity(intent);
             }
             if (v.getId()==tvBody.getId()) {
                 Intent intent = new Intent(context, TweetDetails.class);
                 intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+                intent.putExtra("like tag",String.valueOf(ivLike.getTag()));
+                intent.putExtra("retweet tag",String.valueOf(ivRetweet.getTag()));
                 context.startActivity(intent);
             }
         }

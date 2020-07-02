@@ -9,11 +9,14 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.ComposeActivity;
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApp;
@@ -34,6 +37,9 @@ public class EditNameDialogFragment extends DialogFragment {
     public static final String TAG ="ComposeActivity";
     private EditText mEditText;
     private Button btnTweet;
+    ImageView ivProfileImage;
+    TextView tvName;
+    TextView tvDisplayName;
     TwitterClient client = TwitterApp.getRestClient(getContext());
 
     public EditNameDialogFragment() {
@@ -57,11 +63,34 @@ public class EditNameDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Get field from view
         mEditText = (EditText) view.findViewById(R.id.etCompose);
         btnTweet = (Button) view.findViewById(R.id.btnTweet);
+        ivProfileImage = view.findViewById(R.id.ivProfileImage);
+        tvName = view.findViewById(R.id.tvName);
+        tvDisplayName = view.findViewById(R.id.tvDisplayName);
+        client = TwitterApp.getRestClient(view.getContext());
+        client.myInfo(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                try {
+                    User user = User.fromJson(json.jsonObject);
+                    tvName.setText(user.name);
+                    tvDisplayName.setText("@"+user.screenName);
+                    Glide.with(view.getContext()).load(user.publicImageURL).circleCrop().into(ivProfileImage);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+
+            }
+        });
         // Fetch arguments from bundle and set title
         String title = getArguments().getString("title", "Enter Name");
         getDialog().setTitle(title);
