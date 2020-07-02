@@ -12,8 +12,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.parceler.Parcels;
+
+import okhttp3.Headers;
 
 public class TweetDetails extends AppCompatActivity {
     ImageView ivProfileImage;
@@ -24,12 +27,14 @@ public class TweetDetails extends AppCompatActivity {
     ImageView ivLike;
     ImageView ivRetweet;
     ImageView ivReply;
+    TwitterClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tweet_details);
         final Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
+        client = TwitterApp.getRestClient(this);
         tvBody = findViewById(R.id.tvBody);
         tvName = findViewById(R.id.tvName);
         tvDisplayName = findViewById(R.id.tvDisplayName);
@@ -64,11 +69,33 @@ public class TweetDetails extends AppCompatActivity {
             public void onClick(View view) {
                 ImageView imageView = (ImageView) view;
                 if ((Integer) imageView.getTag() == R.drawable.ic_vector_heart_stroke) {
+                    client.likeTweet(tweet.id, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Headers headers, JSON json) {
+
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+
+                        }
+                    });
                     ivLike.setImageDrawable(getResources().getDrawable(R.drawable.ic_vector_heart));
                     ivLike.setTag(R.drawable.ic_vector_heart);
                     ivLike.setColorFilter(Color.RED);
                 }
                 else {
+                    client.unlikeTweet(tweet.id, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Headers headers, JSON json) {
+                            Log.i("check",json.toString());
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                            Log.i("check",response);
+                        }
+                    });
                     ivLike.setImageDrawable(getResources().getDrawable(R.drawable.ic_vector_heart_stroke));
                     ivLike.setTag(R.drawable.ic_vector_heart_stroke);
                     ivLike.setColorFilter(Color.GRAY);
@@ -80,11 +107,33 @@ public class TweetDetails extends AppCompatActivity {
             public void onClick(View view) {
                 ImageView imageView = (ImageView) view;
                 if ((Integer) imageView.getTag() == R.drawable.ic_vector_retweet_stroke) {
+                    client.reTweet(tweet.id, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Headers headers, JSON json) {
+                            Log.i("check",json.toString());
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                            Log.i("check",response);
+                        }
+                    });
                     ivRetweet.setImageDrawable(getResources().getDrawable(R.drawable.ic_vector_retweet));
                     ivRetweet.setTag(R.drawable.ic_vector_retweet);
                     ivRetweet.setColorFilter(Color.GREEN);
                 }
                 else {
+                    client.unreTweet(tweet.id, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Headers headers, JSON json) {
+                            Log.i("check",json.toString());
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                            Log.i("check",response);
+                        }
+                    });
                     ivRetweet.setImageDrawable(getResources().getDrawable(R.drawable.ic_vector_retweet_stroke));
                     ivRetweet.setTag(R.drawable.ic_vector_retweet_stroke);
                     ivRetweet.setColorFilter(Color.GRAY);
