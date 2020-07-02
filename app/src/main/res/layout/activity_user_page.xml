@@ -60,4 +60,48 @@
         android:text="TextView"
         android:textColor="#000000" />
 
+    <TextView
+        android:id="@+id/tvFollowingNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBio"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="119"
+        android:textColor="#000000"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvFollowerNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBio"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/tvFollowingText"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        tools:text="119" />
+
+    <TextView
+        android:id="@+id/tvFollowingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvFollowingNumber"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvFollowingNumber"
+        android:text="Following" />
+
+    <TextView
+        android:id="@+id/tvFollowerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvFollowingNumber"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvFollowerNumber"
+        android:text="Followers" />
+
 </RelativeLayout>

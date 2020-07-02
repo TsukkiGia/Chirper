@@ -18,6 +18,11 @@ public class UserPage extends AppCompatActivity {
     TextView tvName;
     TextView tvDisplayName;
     TextView tvBio;
+    TextView tvFollowerNumber;
+    TextView tvFollowingNumber;
+    TextView tvFollowerText;
+    TextView tvFollowingText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,12 @@ public class UserPage extends AppCompatActivity {
         ivProfileImage = findViewById(R.id.ivProfileImage);
         tvBio = findViewById(R.id.tvBio);
         ivBanner = findViewById(R.id.ivBanner);
+        tvFollowerNumber = findViewById(R.id.tvFollowerNumber);
+        tvFollowingNumber = findViewById(R.id.tvFollowingNumber);
+        tvFollowerText = findViewById(R.id.tvFollowerText);
+        tvFollowingText = findViewById(R.id.tvFollowingText);
+        tvFollowerNumber.setText(String.valueOf(tweet.user.followerCount));
+        tvFollowingNumber.setText(String.valueOf(tweet.user.followingCount));
         tvName.setText(tweet.user.name);
         tvDisplayName.setText("@"+tweet.user.screenName);
         tvBio.setText(tweet.user.bio);
