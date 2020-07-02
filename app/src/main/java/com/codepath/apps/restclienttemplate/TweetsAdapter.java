@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -79,6 +80,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         //itemView is one row in recyclerview
 
         ImageView ivProfileImage;
+        TextView tvName;
         TextView tvScreenName;
         TextView tvBody;
         TextView tvTimeSince;
@@ -94,13 +96,13 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody = itemView.findViewById(R.id.tvBody);
             tvTimeSince = itemView.findViewById(R.id.tvTimeSince);
             ivMedia = itemView.findViewById(R.id.ivMedia);
+            tvName = itemView.findViewById(R.id.tvName);
             itemView.setOnClickListener(this);
-            //ivLike = itemView.findViewById(R.id.ivLike);
-            //ivRetweet = itemView.findViewById(R.id.ivRetweet);
-            //ivReply = itemView.findViewById(R.id.ivReply);
+            ivLike = itemView.findViewById(R.id.ivLike);
+            ivRetweet = itemView.findViewById(R.id.ivRetweet);
+            ivReply = itemView.findViewById(R.id.ivReply);
 
         }
-
 
         public String getRelativeTimeAgo(String rawJsonDate) {
             String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
@@ -132,7 +134,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         }
         public void bind(Tweet tweet) {
             tvBody.setText(tweet.body);
-            tvScreenName.setText(tweet.user.screenName);
+            tvScreenName.setText("@"+tweet.user.screenName);
+            tvName.setText(tweet.user.name);
             Glide.with(context).load(tweet.user.publicImageURL).circleCrop().into(ivProfileImage);
             tvTimeSince.setText(getRelativeTimeAgo(tweet.createdAt));
             if (tweet.mediaURL != null) {
@@ -141,9 +144,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             else {
                 ivMedia.setVisibility(View.GONE);
             }
-            //ivReply.setImageResource(R.drawable.reply);
-            //ivRetweet.setImageResource(R.drawable.ic_vector_retweet_stroke);
-            //ivLike.setImageResource(R.drawable.ic_vector_heart_stroke);
+
         }
     }
 }

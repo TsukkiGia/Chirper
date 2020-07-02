@@ -50,7 +50,6 @@ public class EditNameDialogFragment extends DialogFragment {
         getDialog().setTitle(title);
         // Show soft keyboard automatically and request focus to field
         mEditText.requestFocus();
-        btnTweet.requestFocus();
         getDialog().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }

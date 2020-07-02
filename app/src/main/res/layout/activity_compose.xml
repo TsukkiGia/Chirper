@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.cardview.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvRoot"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:layout_margin="10dp"
+    android:foreground="?android:attr/selectableItemBackground">
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+
     tools:context=".ComposeActivity">
 
     <TextView
@@ -14,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
+        android:layout_margin="10dp"
         android:layout_marginTop="6dp"
         android:layout_toEndOf="@+id/imageView"
         android:text="TextView"
@@ -25,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvName"
-        android:layout_marginStart="0dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/imageView"
         android:text="TextView"
@@ -35,10 +44,14 @@
         android:id="@+id/layoutView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="70dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="140">
+        android:layout_marginEnd="5dp"
+        card_view:counterEnabled="true"
+        card_view:counterMaxLength="140">
 
         <EditText
             android:id="@+id/etCompose"
@@ -54,33 +67,35 @@
             android:hint="@string/what_s_on_your_mind"
             android:inputType="textMultiLine"
             android:minLines="5"
-            android:padding="5dp" />
+            android:padding="10dp" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnTweet"
-        android:layout_width="wrap_content"
+        android:layout_width="89dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layoutView"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="304dp"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="3dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="0dp"
         android:backgroundTint="#ff1da1f2"
-        android:text="@string/tweet"
-        android:bottomRightRadius="30dp"
         android:bottomLeftRadius="30dp"
+        android:bottomRightRadius="30dp"
+        android:text="@string/tweet"
+        android:textColor="#FFFFFF"
         android:topLeftRadius="30dp"
-        android:topRightRadius="30dp"
-        android:textColor="#FFFFFF" />
+        android:topRightRadius="30dp" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="57dp"
         android:layout_height="52dp"
+        android:layout_alignStart="@+id/layoutView"
+        android:layout_marginStart="0dp"
         android:layout_weight="1"
         tools:srcCompat="@tools:sample/avatars" />
 
 </RelativeLayout>
+</androidx.cardview.widget.CardView>

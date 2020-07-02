@@ -110,7 +110,8 @@ public class TimelineActivity extends AppCompatActivity {
                 try {
                     List<Tweet> Tweets = Tweet.fromJsonArray(jsonArray);
                     adapter.addAll(Tweets);
-                } catch (JSONException e) {
+                }
+                catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
