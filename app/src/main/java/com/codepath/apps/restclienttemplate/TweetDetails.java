@@ -18,6 +18,8 @@ import org.parceler.Parcels;
 
 import okhttp3.Headers;
 
+import static com.codepath.apps.restclienttemplate.TimelineActivity.REQUEST_CODE;
+
 public class TweetDetails extends AppCompatActivity {
     ImageView ivProfileImage;
     TextView tvBody;
@@ -72,12 +74,10 @@ public class TweetDetails extends AppCompatActivity {
                     client.likeTweet(tweet.id, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Headers headers, JSON json) {
-
                         }
 
                         @Override
                         public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-
                         }
                     });
                     ivLike.setImageDrawable(getResources().getDrawable(R.drawable.ic_vector_heart));
@@ -138,6 +138,13 @@ public class TweetDetails extends AppCompatActivity {
                     ivRetweet.setTag(R.drawable.ic_vector_retweet_stroke);
                     ivRetweet.setColorFilter(Color.GRAY);
                 }
+            }
+        });
+        ivReply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TweetDetails.this, ComposeActivity.class);
+                startActivityForResult(intent,REQUEST_CODE);
             }
         });
     }

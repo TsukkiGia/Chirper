@@ -2,17 +2,6 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_gravity="center">
-
-    <item
-        android:id="@+id/twittericon"
-        android:visible="true"
-        android:icon="@drawable/ic_launcher_twitter"
-        android:orderInCategory="100"
-        app:showAsAction="always"
-        android:title="icon"
-        android:layout_gravity="center"
-
-        />
     <item
         android:id="@+id/miActionProgress"
         android:title="Loading..."

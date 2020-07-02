@@ -65,9 +65,7 @@ public class TimelineActivity extends AppCompatActivity {
         fabCompose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
-                startActivityForResult(intent,REQUEST_CODE);
-                //showEditDialog();
+                showEditDialog();
             }
         });
         //find the recycler view
@@ -160,12 +158,12 @@ public class TimelineActivity extends AppCompatActivity {
     }
     public void showProgressBar() {
         // Show progress item
-        toolbar.getMenu().getItem(1).setVisible(true);
+        toolbar.getMenu().getItem(0).setVisible(true);
     }
 
     public void hideProgressBar() {
         // Hide progress item
-        toolbar.getMenu().getItem(1).setVisible(false);
+        toolbar.getMenu().getItem(0).setVisible(false);
     }
     private void showEditDialog() {
         FragmentManager fm = getSupportFragmentManager();

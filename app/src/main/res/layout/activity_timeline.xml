@@ -7,21 +7,31 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".TimelineActivity">
+
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar"
         android:background="#ff1da1f2"
-        app:menu="@menu/menu_main"
-        />
+        app:menu="@menu/menu_main">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_launcher_twitter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></ImageView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        >
-
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/flContainer"
@@ -43,7 +53,7 @@
                 android:clickable="true"
                 android:src="@drawable/ic_vector_compose"
                 android:tint="#FFFFFF"
-                app:fabSize="normal" />
+                app:fabSize="normal"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTweets"
