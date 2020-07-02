@@ -10,12 +10,15 @@
         android:id="@+id/tvBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvScreenName"
+        android:layout_below="@+id/tvDisplayName"
+        android:layout_alignParentEnd="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="-2dp"
+        android:layout_marginEnd="10dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:autoLink="all"
         android:linksClickable="true"
+        android:textColor="#000000"
         tools:text="I don't know if you know but this is BTS World Domination" />
 
     <ImageView
@@ -37,17 +40,19 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="6dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="10dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/tvScreenName"
+        android:id="@+id/tvDisplayName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/ivProfileImage"
+        android:textColor="#020000"
+        android:textStyle="bold"
         tools:text="BTSDomination" />
 
     <TextView
@@ -56,8 +61,8 @@
         android:layout_height="21dp"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="136dp"
-        android:layout_marginEnd="0dp"
-        android:layout_toEndOf="@+id/tvScreenName"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@+id/tvDisplayName"
         android:gravity="right"
         tools:text="5 min ago" />
 

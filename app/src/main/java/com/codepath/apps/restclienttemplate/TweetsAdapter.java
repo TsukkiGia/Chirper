@@ -23,7 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
 
@@ -91,10 +90,11 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
-            tvScreenName = itemView.findViewById(R.id.tvScreenName);
+            tvScreenName = itemView.findViewById(R.id.tvDisplayName);
             tvBody = itemView.findViewById(R.id.tvBody);
             tvTimeSince = itemView.findViewById(R.id.tvTimeSince);
             ivMedia = itemView.findViewById(R.id.ivMedia);
+            itemView.setOnClickListener(this);
             //ivLike = itemView.findViewById(R.id.ivLike);
             //ivRetweet = itemView.findViewById(R.id.ivRetweet);
             //ivReply = itemView.findViewById(R.id.ivReply);
@@ -136,7 +136,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             Glide.with(context).load(tweet.user.publicImageURL).circleCrop().into(ivProfileImage);
             tvTimeSince.setText(getRelativeTimeAgo(tweet.createdAt));
             if (tweet.mediaURL != null) {
-                Glide.with(context).load(tweet.mediaURL).transform(new RoundedCornersTransformation(30, 10)).into(ivMedia);
+                Glide.with(context).load(tweet.mediaURL).centerCrop().into(ivMedia);
             }
             else {
                 ivMedia.setVisibility(View.GONE);

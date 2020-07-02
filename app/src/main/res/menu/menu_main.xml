@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_gravity="center">
 
-    <item
-        android:id="@+id/compose"
-        android:icon="@drawable/ic_vector_compose"
-        android:tint="@android:color/white"
-        app:tint="@android:color/white"
-        android:title="Compose"
-        app:showAsAction="always"
-        app:iconTint="@android:color/white"
-        />
     <item
         android:id="@+id/twittericon"
         android:visible="true"
@@ -18,6 +10,8 @@
         android:orderInCategory="100"
         app:showAsAction="always"
         android:title="icon"
+        android:layout_gravity="center"
+
         />
     <item
         android:id="@+id/miActionProgress"

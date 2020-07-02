@@ -13,12 +13,14 @@ public class User {
 
     public String screenName;
     public String publicImageURL;
+    public long id;
 
     public static User fromJson(JSONObject jsonObject) throws JSONException {
         User user = new User();
         user.name =  jsonObject.getString("name");
         user.screenName = jsonObject.getString("screen_name");
         user.publicImageURL = jsonObject.getString("profile_image_url_https");
+        user.id = jsonObject.getLong("id");
         return user;
     }
 }

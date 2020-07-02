@@ -17,6 +17,7 @@ import android.text.style.AlignmentSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.codepath.apps.restclienttemplate.models.EditNameDialogFragment;
 import com.codepath.apps.restclienttemplate.models.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +45,7 @@ public class TimelineActivity extends AppCompatActivity {
     List<Tweet> tweets;
     SwipeRefreshLayout swipeContainer;
     private EndlessRecyclerViewScrollListener scrollListener;
+    private FloatingActionButton fabCompose;
     Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,15 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright);
+        fabCompose = findViewById(R.id.fabCompose);
+        fabCompose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
+                startActivityForResult(intent,REQUEST_CODE);
+                //showEditDialog();
+            }
+        });
         //find the recycler view
         rvTweets = findViewById(R.id.rvTweets);
         //init the tweets and adapter
@@ -80,17 +92,6 @@ public class TimelineActivity extends AppCompatActivity {
         // Adds the scroll listener to RecyclerView
         rvTweets.addOnScrollListener(scrollListener);
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.compose) {
-                    Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
-                    startActivityForResult(intent,REQUEST_CODE);
-                    //showEditDialog();
-                }
-                return false;
-            }
-        });
         showProgressBar();
         populateHomeTimeline();
         hideProgressBar();
@@ -158,12 +159,12 @@ public class TimelineActivity extends AppCompatActivity {
     }
     public void showProgressBar() {
         // Show progress item
-        toolbar.getMenu().getItem(2).setVisible(true);
+        toolbar.getMenu().getItem(1).setVisible(true);
     }
 
     public void hideProgressBar() {
         // Hide progress item
-        toolbar.getMenu().getItem(2).setVisible(false);
+        toolbar.getMenu().getItem(1).setVisible(false);
     }
     private void showEditDialog() {
         FragmentManager fm = getSupportFragmentManager();
