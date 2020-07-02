@@ -10,7 +10,6 @@
         android:title="Compose"
         app:showAsAction="always"
         app:iconTint="@android:color/white"
-        
         />
     <item
         android:id="@+id/twittericon"

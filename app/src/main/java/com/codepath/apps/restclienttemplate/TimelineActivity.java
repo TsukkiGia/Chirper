@@ -3,6 +3,7 @@ package com.codepath.apps.restclienttemplate;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,12 +11,16 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.SpannableString;
+import android.text.style.AlignmentSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.codepath.apps.restclienttemplate.models.EditNameDialogFragment;
 import com.codepath.apps.restclienttemplate.models.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -50,7 +55,6 @@ public class TimelineActivity extends AppCompatActivity {
             public void onRefresh() {
                 Log.i(TAG, "fetching data");
                 populateHomeTimeline();
-
             }
         });
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright);
@@ -63,6 +67,7 @@ public class TimelineActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rvTweets.setLayoutManager(layoutManager);
         rvTweets.setAdapter(adapter);
+        //adding divider between items in the recyclerview
         DividerItemDecoration decor =  new DividerItemDecoration(rvTweets.getContext(),layoutManager.getOrientation());
         rvTweets.addItemDecoration(decor);
         scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
@@ -76,12 +81,12 @@ public class TimelineActivity extends AppCompatActivity {
         rvTweets.addOnScrollListener(scrollListener);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.compose) {
                     Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
                     startActivityForResult(intent,REQUEST_CODE);
+                    //showEditDialog();
                 }
                 return false;
             }
@@ -114,7 +119,6 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.e(TAG,"failed",throwable);
             }
         },tweets.get(tweets.size()-1).id);
-
     }
 
     @Override
@@ -123,13 +127,10 @@ public class TimelineActivity extends AppCompatActivity {
             //get the data from the tweet intent
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
             //modify model
-
             tweets.add(0, tweet);
-
             //update the recyclerview with the tweet
             adapter.notifyItemInserted(0);
             rvTweets.smoothScrollToPosition(0);
-
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -138,7 +139,6 @@ public class TimelineActivity extends AppCompatActivity {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
-
                 JSONArray jsonArray= json.jsonArray;
                 try {
                     adapter.clear();
@@ -148,13 +148,11 @@ public class TimelineActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 Log.e(TAG,"failed",throwable);
-
             }
         });
     }
@@ -166,5 +164,10 @@ public class TimelineActivity extends AppCompatActivity {
     public void hideProgressBar() {
         // Hide progress item
         toolbar.getMenu().getItem(2).setVisible(false);
+    }
+    private void showEditDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        EditNameDialogFragment editNameDialogFragment = EditNameDialogFragment.newInstance("Some Title");
+        editNameDialogFragment.show(fm, "activity_compose");
     }
 }
