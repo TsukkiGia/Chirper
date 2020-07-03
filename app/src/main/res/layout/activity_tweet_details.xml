@@ -87,8 +87,8 @@
             android:layout_height="20dp"
             android:layout_below="@+id/ivMedia"
             android:layout_alignEnd="@+id/tvBody"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="30dp"
             android:tint="@android:color/darker_gray"
             app:srcCompat="@drawable/ic_vector_heart_stroke" />
 
@@ -115,6 +115,38 @@
             android:text="TextView"
             android:textColor="@android:color/darker_gray" />
 
+        <ImageView
+            android:id="@+id/ivExit"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="1dp"
+            android:tint="#ff1da1f2"
+            card_view:srcCompat="@android:drawable/ic_delete" />
+
+        <TextView
+            android:id="@+id/tvRT"
+            android:layout_width="wrap_content"
+            android:visibility="invisible"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivMedia"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/ivRetweet"
+            tools:text="1340" />
+
+        <TextView
+            android:id="@+id/tvLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_below="@+id/ivMedia"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            tools:text="1000" />
+
     </RelativeLayout>
+
 </androidx.cardview.widget.CardView>
 </RelativeLayout>

@@ -20,6 +20,8 @@ public class Tweet {
     public User user;
     public String mediaURL;
     public long id;
+    public long retweetCount;
+    public long likeCount;
 
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         //how do you create an object within the method
@@ -28,9 +30,10 @@ public class Tweet {
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.id = jsonObject.getLong("id");
+        tweet.retweetCount = jsonObject.getLong("retweet_count");
+        //tweet.likeCount = jsonObject.getLong("favourites_count");
         try {
             tweet.mediaURL = jsonObject.getJSONObject("entities").getJSONArray("media").getJSONObject(0).getString("media_url_https");
-            Log.i("HELP", tweet.mediaURL);
         } catch (JSONException e) {
             e.printStackTrace();
         }

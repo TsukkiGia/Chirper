@@ -237,6 +237,13 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 intent.putExtra("retweet tag",String.valueOf(ivRetweet.getTag()));
                 context.startActivity(intent);
             }
+            if (v.getId()==ivMedia.getId()) {
+                Intent intent = new Intent(context, TweetDetails.class);
+                intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+                intent.putExtra("like tag",String.valueOf(ivLike.getTag()));
+                intent.putExtra("retweet tag",String.valueOf(ivRetweet.getTag()));
+                context.startActivity(intent);
+            }
         }
 
         public void bind(Tweet tweet) {

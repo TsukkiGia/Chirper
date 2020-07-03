@@ -30,6 +30,9 @@ public class TweetDetails extends AppCompatActivity {
     ImageView ivLike;
     ImageView ivRetweet;
     ImageView ivReply;
+    ImageView ivExit;
+    TextView tvRT;
+    TextView tvLikes;
     TwitterClient client;
 
     @Override
@@ -43,12 +46,24 @@ public class TweetDetails extends AppCompatActivity {
         client = TwitterApp.getRestClient(this);
         tvBody = act_det.tvBody;
         tvName = act_det.tvName;
+        tvLikes = act_det.tvLike;
+        tvRT = act_det.tvRT;
         tvDisplayName = act_det.tvDisplayName;
         ivProfileImage = act_det.ivProfileImage;
         ivMedia = act_det.ivMedia;
+        ivExit = act_det.ivExit;
         ivLike = act_det.ivLike;
         ivRetweet = act_det.ivRetweet;
-        Boolean hello = liketag.equals(String.valueOf(R.drawable.ic_vector_heart_stroke));
+        ivExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("like tag",String.valueOf(ivLike.getTag()));
+                intent.putExtra("retweet tag",String.valueOf(ivRetweet.getTag()));
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
         if (liketag.equals(String.valueOf(R.drawable.ic_vector_heart_stroke))) {
             ivLike.setTag(R.drawable.ic_vector_heart_stroke);
         }
@@ -66,6 +81,8 @@ public class TweetDetails extends AppCompatActivity {
             ivRetweet.setColorFilter(Color.GREEN);
         }
         ivReply = act_det.ivReply;
+        tvLikes.setText(String.valueOf(tweet.likeCount));
+        tvRT.setText(String.valueOf(tweet.retweetCount));
         tvBody.setText(tweet.body);
         tvName.setText(tweet.user.name);
         tvDisplayName.setText("@"+tweet.user.screenName);
