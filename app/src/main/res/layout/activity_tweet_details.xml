@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvRoot"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
     android:layout_margin="10dp"
+    android:layout_marginBottom="5dp"
     android:foreground="?android:attr/selectableItemBackground">
 
     <RelativeLayout
@@ -55,21 +60,21 @@
 
         <ImageView
             android:id="@+id/ivReply"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_below="@+id/ivMedia"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:tint="@android:color/darker_gray"
             app:srcCompat="@drawable/reply" />
 
         <ImageView
             android:id="@+id/ivRetweet"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_below="@+id/ivMedia"
-            android:layout_marginStart="110dp"
+            android:layout_marginStart="124dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="0dp"
             android:layout_toEndOf="@+id/ivReply"
@@ -78,12 +83,12 @@
 
         <ImageView
             android:id="@+id/ivLike"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_below="@+id/ivMedia"
             android:layout_alignEnd="@+id/tvBody"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="60dp"
+            android:layout_marginEnd="32dp"
             android:tint="@android:color/darker_gray"
             app:srcCompat="@drawable/ic_vector_heart_stroke" />
 
@@ -112,3 +117,4 @@
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
+</RelativeLayout>

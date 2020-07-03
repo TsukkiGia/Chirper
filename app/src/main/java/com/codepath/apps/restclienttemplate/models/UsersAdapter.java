@@ -1,32 +1,21 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.restclienttemplate.databinding.ItemUserBinding;
 import com.codepath.apps.restclienttemplate.models.User;
-import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
-import org.parceler.Parcels;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
-import okhttp3.Headers;
 
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
@@ -42,15 +31,16 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         this.users = users;
         this.onClickListener = onClickListener;
     }
-    TwitterClient client = TwitterApp.getRestClient(context);
     List<User> users;
+    ItemUserBinding item_bind;
 
     //for each row, inflate the layout
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_user, parent, false);
-        return new ViewHolder(view);
+        LayoutInflater inflate = LayoutInflater.from(parent.getContext());
+        item_bind = ItemUserBinding.inflate(inflate,parent,false);
+        return new UsersAdapter.ViewHolder(item_bind);
     }
 
     //bind values based on position
@@ -80,22 +70,19 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     }
 
     //define a viewholder
-
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //itemView is one row in recyclerview
-
         TextView tvName;
         TextView tvScreenName;
         TextView tvBio;
         ImageView ivProfileImage;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvScreenName = itemView.findViewById(R.id.tvDisplayName);
-            tvBio = itemView.findViewById(R.id.tvBio);
-            tvName = itemView.findViewById(R.id.tvName);
-            ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
-
+        public ViewHolder(@NonNull ItemUserBinding itemView) {
+            super(itemView.getRoot());
+            tvScreenName = itemView.tvDisplayName;
+            tvBio = itemView.tvBio;
+            tvName = itemView.tvName;
+            ivProfileImage = itemView.ivProfileImage;
         }
 
         public void onClick(View v) {

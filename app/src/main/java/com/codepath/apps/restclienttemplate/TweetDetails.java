@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.restclienttemplate.databinding.ActivityTweetDetailsBinding;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
@@ -34,18 +35,19 @@ public class TweetDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tweet_details);
+        ActivityTweetDetailsBinding act_det = ActivityTweetDetailsBinding.inflate(getLayoutInflater());
+        setContentView(act_det.getRoot());
         final Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
         final String liketag = getIntent().getStringExtra("like tag");
         final String retweettag = getIntent().getStringExtra("retweet tag");
         client = TwitterApp.getRestClient(this);
-        tvBody = findViewById(R.id.tvBody);
-        tvName = findViewById(R.id.tvName);
-        tvDisplayName = findViewById(R.id.tvDisplayName);
-        ivProfileImage = findViewById(R.id.ivProfileImage);
-        ivMedia = findViewById(R.id.ivMedia);
-        ivLike = findViewById(R.id.ivLike);
-        ivRetweet = findViewById(R.id.ivRetweet);
+        tvBody = act_det.tvBody;
+        tvName = act_det.tvName;
+        tvDisplayName = act_det.tvDisplayName;
+        ivProfileImage = act_det.ivProfileImage;
+        ivMedia = act_det.ivMedia;
+        ivLike = act_det.ivLike;
+        ivRetweet = act_det.ivRetweet;
         Boolean hello = liketag.equals(String.valueOf(R.drawable.ic_vector_heart_stroke));
         if (liketag.equals(String.valueOf(R.drawable.ic_vector_heart_stroke))) {
             ivLike.setTag(R.drawable.ic_vector_heart_stroke);
@@ -63,7 +65,7 @@ public class TweetDetails extends AppCompatActivity {
             ivRetweet.setTag(R.drawable.ic_vector_retweet);
             ivRetweet.setColorFilter(Color.GREEN);
         }
-        ivReply = findViewById(R.id.ivReply);
+        ivReply = act_det.ivReply;
         tvBody.setText(tweet.body);
         tvName.setText(tweet.user.name);
         tvDisplayName.setText("@"+tweet.user.screenName);

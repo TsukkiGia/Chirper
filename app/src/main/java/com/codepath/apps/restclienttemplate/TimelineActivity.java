@@ -43,6 +43,7 @@ public class TimelineActivity extends AppCompatActivity {
     private EndlessRecyclerViewScrollListener scrollListener;
     private FloatingActionButton fabCompose;
     Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,6 +163,7 @@ public class TimelineActivity extends AppCompatActivity {
         // Hide progress item
         toolbar.getMenu().getItem(0).setVisible(false);
     }
+
     private void showEditDialog() {
         FragmentManager fm = getSupportFragmentManager();
         EditNameDialogFragment editNameDialogFragment = EditNameDialogFragment.newInstance("Some Title");

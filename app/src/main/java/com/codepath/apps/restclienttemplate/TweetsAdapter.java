@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.restclienttemplate.databinding.ItemTweetBinding;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
@@ -37,6 +38,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     public interface OnClickListener {
         void onItemClicked (int position);
     }
+
     Context context;
     OnClickListener onClickListener;
     public TweetsAdapter(Context context, List<Tweet> tweets) {
@@ -46,13 +48,15 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     }
     TwitterClient client = TwitterApp.getRestClient(context);
     List<Tweet> tweets;
+    ItemTweetBinding item_bind;
 
     //for each row, inflate the layout
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_tweet, parent, false);
-        return new ViewHolder(view);
+        LayoutInflater inflate = LayoutInflater.from(parent.getContext());
+        item_bind = ItemTweetBinding.inflate(inflate,parent,false);
+        return new ViewHolder(item_bind);
     }
 
     //bind values based on position
@@ -82,10 +86,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     }
 
     //define a viewholder
-
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //itemView is one row in recyclerview
-
         ImageView ivProfileImage;
         TextView tvName;
         TextView tvScreenName;
@@ -96,17 +98,17 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         ImageView ivRetweet;
         ImageView ivReply;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
-            tvScreenName = itemView.findViewById(R.id.tvDisplayName);
-            tvBody = itemView.findViewById(R.id.tvBody);
-            tvTimeSince = itemView.findViewById(R.id.tvTimeSince);
-            ivMedia = itemView.findViewById(R.id.ivMedia);
-            tvName = itemView.findViewById(R.id.tvName);
-            ivLike = itemView.findViewById(R.id.ivLike);
-            ivRetweet = itemView.findViewById(R.id.ivRetweet);
-            ivReply = itemView.findViewById(R.id.ivReply);
+        public ViewHolder(@NonNull ItemTweetBinding itemView) {
+            super(itemView.getRoot());
+            ivProfileImage = itemView.ivProfileImage;
+            tvScreenName = itemView.tvDisplayName;
+            tvBody = itemView.tvBody;
+            tvTimeSince = itemView.tvTimeSince;
+            ivMedia = itemView.ivMedia;
+            tvName = itemView.tvName;
+            ivLike = itemView.ivLike;
+            ivRetweet = itemView.ivRetweet;
+            ivReply = itemView.ivReply;
             ivLike.setOnClickListener(this);
             ivRetweet.setOnClickListener(this);
             ivReply.setOnClickListener(this);
@@ -115,28 +117,48 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             ivRetweet.setTag(R.drawable.ic_vector_retweet_stroke);
         }
 
+        private static final int SECOND_MILLIS = 1000;
+        private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
+        private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
+        private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
+
         public String getRelativeTimeAgo(String rawJsonDate) {
             String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
             SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
             sf.setLenient(true);
 
-            String relativeDate = "";
             try {
-                long dateMillis = sf.parse(rawJsonDate).getTime();
-                relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
-                        System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString();
+                long time = sf.parse(rawJsonDate).getTime();
+                long now = System.currentTimeMillis();
+
+                final long diff = now - time;
+                if (diff < MINUTE_MILLIS) {
+                    return "just now";
+                } else if (diff < 2 * MINUTE_MILLIS) {
+                    return "a minute ago";
+                } else if (diff < 50 * MINUTE_MILLIS) {
+                    return diff / MINUTE_MILLIS + " m";
+                } else if (diff < 90 * MINUTE_MILLIS) {
+                    return "an hour ago";
+                } else if (diff < 24 * HOUR_MILLIS) {
+                    return diff / HOUR_MILLIS + " h";
+                } else if (diff < 48 * HOUR_MILLIS) {
+                    return "yesterday";
+                } else {
+                    return diff / DAY_MILLIS + " d";
+                }
             } catch (ParseException e) {
+                Log.i("TAG", "getRelativeTimeAgo failed");
                 e.printStackTrace();
             }
 
-            return relativeDate;
+            return "";
         }
 
         public void onClick(View v) {
             Log.i("hello","hello");
             int position = getAdapterPosition();
             Tweet tweet = tweets.get(position);
-
             if (v.getId()==ivLike.getId()) {
                 if ((Integer) v.getTag() == R.drawable.ic_vector_heart_stroke) {
                     client.likeTweet(tweet.id, new JsonHttpResponseHandler() {
@@ -216,6 +238,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 context.startActivity(intent);
             }
         }
+
         public void bind(Tweet tweet) {
             tvBody.setText(tweet.body);
             tvScreenName.setText("@"+tweet.user.screenName);
@@ -228,7 +251,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             else {
                 ivMedia.setVisibility(View.GONE);
             }
-
         }
     }
 }

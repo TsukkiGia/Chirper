@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.restclienttemplate.databinding.ActivityUserPageBinding;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import org.parceler.Parcels;
@@ -29,17 +30,18 @@ public class UserPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_page);
+        ActivityUserPageBinding act_user = ActivityUserPageBinding.inflate(getLayoutInflater());
+        setContentView(act_user.getRoot());
         final Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
-        tvName = findViewById(R.id.tvName);
-        tvDisplayName = findViewById(R.id.tvDisplayName);
-        ivProfileImage = findViewById(R.id.ivProfileImage);
-        tvBio = findViewById(R.id.tvBio);
-        ivBanner = findViewById(R.id.ivBanner);
-        tvFollowerNumber = findViewById(R.id.tvFollowerNumber);
-        tvFollowingNumber = findViewById(R.id.tvFollowingNumber);
-        tvFollowerText = findViewById(R.id.tvFollowerText);
-        tvFollowingText = findViewById(R.id.tvFollowingText);
+        tvName = act_user.tvName;
+        tvDisplayName = act_user.tvDisplayName;
+        ivProfileImage = act_user.ivProfileImage;
+        tvBio = act_user.tvBio;
+        ivBanner = act_user.ivBanner;
+        tvFollowerNumber = act_user.tvFollowerNumber;
+        tvFollowingNumber = act_user.tvFollowingNumber;
+        tvFollowerText = act_user.tvFollowerText;
+        tvFollowingText = act_user.tvFollowingText;
         tvFollowerNumber.setText(String.valueOf(tweet.user.followerCount));
         tvFollowingNumber.setText(String.valueOf(tweet.user.followingCount));
         tvName.setText(tweet.user.name);
@@ -48,6 +50,7 @@ public class UserPage extends AppCompatActivity {
         Log.i("hello",tweet.user.publicImageURL);
         Glide.with(getApplicationContext()).load(tweet.user.publicImageURL).circleCrop().into(ivProfileImage);
         Glide.with(getApplicationContext()).load(tweet.user.BannerImageURL).centerCrop().into(ivBanner);
+
         tvFollowerNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,6 +59,7 @@ public class UserPage extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
         tvFollowingNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

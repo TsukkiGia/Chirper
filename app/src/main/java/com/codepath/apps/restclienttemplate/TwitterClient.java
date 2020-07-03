@@ -111,7 +111,7 @@ public class TwitterClient extends OAuthBaseClient {
 		String apiUrl = getApiUrl("users/show.json");
 		// Can specify query string params directly or through RequestParams.
 		RequestParams params = new RequestParams();
-		params.put("screen_name", "seok_jinnie__");
+		params.put("screen_name", "MagicJinnie7");
 		client.get(apiUrl, params, handler);
 	}
 	public void getFollowers(String screen_name, JsonHttpResponseHandler handler) {
