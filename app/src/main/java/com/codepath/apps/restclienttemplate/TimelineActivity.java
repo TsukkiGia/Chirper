@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.codepath.apps.restclienttemplate.databinding.ActivityTimelineBinding;
 import com.codepath.apps.restclienttemplate.models.EditNameDialogFragment;
 import com.codepath.apps.restclienttemplate.models.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -45,9 +46,10 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timeline);
+        ActivityTimelineBinding act_time = ActivityTimelineBinding.inflate(getLayoutInflater());
+        setContentView(act_time.getRoot());
         client = TwitterApp.getRestClient(this);
-        swipeContainer = findViewById(R.id.swipeContainer);
+        swipeContainer = act_time.swipeContainer;
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -56,7 +58,7 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright);
-        fabCompose = findViewById(R.id.fabCompose);
+        fabCompose = act_time.fabCompose;
         fabCompose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,7 +66,7 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
         //find the recycler view
-        rvTweets = findViewById(R.id.rvTweets);
+        rvTweets = act_time.rvTweets;
         //init the tweets and adapter
         tweets = new ArrayList<>();
         adapter = new TweetsAdapter(this,tweets);
@@ -84,11 +86,10 @@ public class TimelineActivity extends AppCompatActivity {
         };
         // Adds the scroll listener to RecyclerView
         rvTweets.addOnScrollListener(scrollListener);
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = act_time.toolbar;
         showProgressBar();
         populateHomeTimeline();
         hideProgressBar();
-
     }
 
     private void loadMoreData() {
@@ -134,6 +135,7 @@ public class TimelineActivity extends AppCompatActivity {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
+                Log.i("JSON",json.toString());
                 JSONArray jsonArray= json.jsonArray;
                 try {
                     adapter.clear();

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.restclienttemplate.databinding.ActivityComposeBinding;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.models.User;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -36,14 +37,16 @@ public class ComposeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_compose);
-        btnTweet = findViewById(R.id.btnTweet);
-        etCompose = findViewById(R.id.etCompose);
-        ivProfileImage = findViewById(R.id.ivProfileImage);
-        tvName = findViewById(R.id.tvName);
-        tvDisplayName = findViewById(R.id.tvDisplayName);
+        ActivityComposeBinding act_comp = ActivityComposeBinding.inflate(getLayoutInflater());
+        setContentView(act_comp.getRoot());
+        btnTweet = act_comp.btnTweet;
+        etCompose = act_comp.etCompose;
+        ivProfileImage = act_comp.ivProfileImage;
+        tvName = act_comp.tvName;
+        tvDisplayName = act_comp.tvDisplayName;
         client = TwitterApp.getRestClient(this);
         client.myInfo(new JsonHttpResponseHandler() {
+
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 try {
@@ -52,16 +55,18 @@ public class ComposeActivity extends AppCompatActivity {
                     tvDisplayName.setText("@"+user.screenName);
                     Glide.with(getApplicationContext()).load(user.publicImageURL).circleCrop().into(ivProfileImage);
 
-                } catch (JSONException e) {
+                }
+                catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-
+                Log.d(TAG, "onFailure");
             }
         });
+
         final Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
         etCompose.setText(String.format("@%s ", tweet.user.screenName));
         //set onclick listener to the tweet button
@@ -92,7 +97,8 @@ public class ComposeActivity extends AppCompatActivity {
                             data.putExtra("tweet", Parcels.wrap(tweet));
                             setResult(RESULT_OK, data);
                             finish();
-                        } catch (JSONException e) {
+                        }
+                        catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
