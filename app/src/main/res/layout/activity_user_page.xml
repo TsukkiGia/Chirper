@@ -104,4 +104,11 @@
         android:layout_toEndOf="@+id/tvFollowerNumber"
         android:text="Followers" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvHomeTweets"
+        android:layout_width="match_parent"
+        android:layout_height="458dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="273dp" />
+
 </RelativeLayout>

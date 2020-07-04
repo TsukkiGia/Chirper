@@ -12,6 +12,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -88,9 +90,25 @@ public class TimelineActivity extends AppCompatActivity {
         // Adds the scroll listener to RecyclerView
         rvTweets.addOnScrollListener(scrollListener);
         toolbar = act_time.toolbar;
-        showProgressBar();
+        setSupportActionBar(toolbar);
+
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
         populateHomeTimeline();
-        hideProgressBar();
+        menu.getItem(1).setVisible(false);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==R.id.compose) {
+            showEditDialog();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void loadMoreData() {
@@ -124,6 +142,7 @@ public class TimelineActivity extends AppCompatActivity {
             //get the data from the tweet intent
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
             //modify model
+
             tweets.add(0, tweet);
             //update the recyclerview with the tweet
             adapter.notifyItemInserted(0);

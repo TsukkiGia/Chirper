@@ -5,8 +5,18 @@
     <item
         android:id="@+id/miActionProgress"
         android:title="Loading..."
-        android:visible="false"
+        android:visible="true"
         android:orderInCategory="100"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/compose"
+        app:backgroundTint="#ff1da1f2"
+        android:clickable="true"
+        android:icon="@drawable/ic_vector_compose"
+        android:title="Compose"
+        android:visible="true"
+        android:iconTint="#FFFFFF"
         app:showAsAction="always" />
 
 </menu>

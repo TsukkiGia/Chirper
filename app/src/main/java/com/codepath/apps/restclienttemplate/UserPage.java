@@ -1,6 +1,8 @@
 package com.codepath.apps.restclienttemplate;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +14,16 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.databinding.ActivityUserPageBinding;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.parceler.Parcels;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Headers;
 
 public class UserPage extends AppCompatActivity {
     ImageView ivBanner;
@@ -25,6 +35,11 @@ public class UserPage extends AppCompatActivity {
     TextView tvFollowingNumber;
     TextView tvFollowerText;
     TextView tvFollowingText;
+    RecyclerView rvHomeTweets;
+    TweetsAdapter adapter;
+    List<Tweet> tweets;
+    TwitterClient client;
+    Tweet tweet;
 
 
     @Override
@@ -32,8 +47,10 @@ public class UserPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityUserPageBinding act_user = ActivityUserPageBinding.inflate(getLayoutInflater());
         setContentView(act_user.getRoot());
-        final Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
+        tweet = Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
         tvName = act_user.tvName;
+        tweets = new ArrayList<>();
+        client = TwitterApp.getRestClient(this);
         tvDisplayName = act_user.tvDisplayName;
         ivProfileImage = act_user.ivProfileImage;
         tvBio = act_user.tvBio;
@@ -44,6 +61,11 @@ public class UserPage extends AppCompatActivity {
         tvFollowingText = act_user.tvFollowingText;
         tvFollowerNumber.setText(String.valueOf(tweet.user.followerCount));
         tvFollowingNumber.setText(String.valueOf(tweet.user.followingCount));
+        adapter = new TweetsAdapter(this,tweets);
+        rvHomeTweets = act_user.rvHomeTweets;
+        rvHomeTweets.setAdapter(adapter);
+        rvHomeTweets.setLayoutManager(new LinearLayoutManager(this));
+        populateUserTimeline();
         tvName.setText(tweet.user.name);
         tvDisplayName.setText("@"+tweet.user.screenName);
         tvBio.setText(tweet.user.bio);
@@ -69,5 +91,26 @@ public class UserPage extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void populateUserTimeline() {
+        client.getTheTweets(tweet.user.screenName, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                JSONArray jsonArray = json.jsonArray;
+                try {
+                    adapter.clear();
+                    adapter.addAll(Tweet.fromJsonArray(jsonArray));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+
+            }
+        });
     }
 }
