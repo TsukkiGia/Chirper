@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -64,7 +65,10 @@ public class UserPage extends AppCompatActivity {
         adapter = new TweetsAdapter(this,tweets);
         rvHomeTweets = act_user.rvHomeTweets;
         rvHomeTweets.setAdapter(adapter);
-        rvHomeTweets.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        rvHomeTweets.setLayoutManager(layoutManager);
+        DividerItemDecoration decor =  new DividerItemDecoration(rvHomeTweets.getContext(),layoutManager.getOrientation());
+        rvHomeTweets.addItemDecoration(decor);
         populateUserTimeline();
         tvName.setText(tweet.user.name);
         tvDisplayName.setText("@"+tweet.user.screenName);
