@@ -182,7 +182,4 @@ public class TweetDetails extends AppCompatActivity {
             }
         });
     }
-    private int getDrawableId(ImageView iv) {
-        return (Integer) iv.getTag();
-    }
 }
