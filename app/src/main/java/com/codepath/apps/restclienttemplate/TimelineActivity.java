@@ -141,7 +141,6 @@ public class TimelineActivity extends AppCompatActivity {
             //get the data from the tweet intent
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
             //modify model
-
             tweets.add(0, tweet);
             //update the recyclerview with the tweet
             adapter.notifyItemInserted(0);
@@ -172,6 +171,7 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
     }
+    
     public void showProgressBar() {
         // Show progress item
         toolbar.getMenu().getItem(0).setVisible(true);
