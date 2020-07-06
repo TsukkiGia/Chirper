@@ -107,12 +107,10 @@ public class UserPage extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-
             }
         });
     }
