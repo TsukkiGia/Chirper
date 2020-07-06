@@ -57,6 +57,7 @@ public class FollowingList extends AppCompatActivity {
         rvFollowing.addItemDecoration(decor);
         client = TwitterApp.getRestClient(this);
     }
+    
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
