@@ -76,7 +76,6 @@ public class UserPage extends AppCompatActivity {
         Log.i("hello",tweet.user.publicImageURL);
         Glide.with(getApplicationContext()).load(tweet.user.publicImageURL).circleCrop().into(ivProfileImage);
         Glide.with(getApplicationContext()).load(tweet.user.BannerImageURL).centerCrop().into(ivBanner);
-
         tvFollowerNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
