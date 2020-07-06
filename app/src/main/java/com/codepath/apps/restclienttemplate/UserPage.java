@@ -42,7 +42,6 @@ public class UserPage extends AppCompatActivity {
     TwitterClient client;
     Tweet tweet;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +92,6 @@ public class UserPage extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
     }
 
     private void populateUserTimeline() {
