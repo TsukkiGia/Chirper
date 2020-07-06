@@ -54,7 +54,6 @@ public class ComposeActivity extends AppCompatActivity {
                     tvName.setText(user.name);
                     tvDisplayName.setText("@"+user.screenName);
                     Glide.with(getApplicationContext()).load(user.publicImageURL).circleCrop().into(ivProfileImage);
-
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
@@ -79,7 +78,6 @@ public class ComposeActivity extends AppCompatActivity {
                     Toast.makeText(ComposeActivity.this,"Sorry, your tweet can't be empty",Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 if (tweetContent.length()>MAX_LENGTH) {
                     Toast.makeText(ComposeActivity.this,"Sorry, your tweet is too long",Toast.LENGTH_SHORT).show();
                     return;
@@ -87,6 +85,7 @@ public class ComposeActivity extends AppCompatActivity {
 
                 //Make a call to the Twitter API to publish
                 client.replyTweet(tweetContent, tweet.id, new JsonHttpResponseHandler() {
+                    
                     @Override
                     public void onSuccess(int statusCode, Headers headers, JSON json) {
                         Log.i(TAG,"onsuccess");
