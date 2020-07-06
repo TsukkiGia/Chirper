@@ -119,6 +119,7 @@ public class TwitterClient extends OAuthBaseClient {
 		// Can specify query string params directly or through RequestParams.
 		RequestParams params = new RequestParams();
 		params.put("screen_name", screen_name);
+		params.put("count", 200);
 		client.get(apiUrl, params, handler);
 	}
 
@@ -127,6 +128,7 @@ public class TwitterClient extends OAuthBaseClient {
 		// Can specify query string params directly or through RequestParams.
 		RequestParams params = new RequestParams();
 		params.put("screen_name", screen_name);
+		params.put("count", 200);
 		client.get(apiUrl, params, handler);
 	}
 	public void getTheTweets(String screen_name, JsonHttpResponseHandler handler) {

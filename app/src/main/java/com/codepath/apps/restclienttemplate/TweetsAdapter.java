@@ -93,6 +93,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvScreenName;
         TextView tvBody;
         TextView tvTimeSince;
+        TextView rtCount;
         ImageView ivMedia;
         ImageView ivLike;
         ImageView ivRetweet;
@@ -109,6 +110,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             ivLike = itemView.ivLike;
             ivRetweet = itemView.ivRetweet;
             ivReply = itemView.ivReply;
+            rtCount = itemView.rtCount;
             ivLike.setOnClickListener(this);
             ivRetweet.setOnClickListener(this);
             ivReply.setOnClickListener(this);
@@ -170,7 +172,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                         public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                         }
                     });
-                    ivLike.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_vector_heart));
+                    ivLike.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_vector_heart_a));
                     ivLike.setTag(R.drawable.ic_vector_heart);
                     ivLike.setColorFilter(Color.RED);
                 }
@@ -186,11 +188,16 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                             Log.i("check",response);
                         }
                     });
-                    ivLike.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_vector_heart_stroke));
+                    ivLike.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_vector_heart_stroke_a));
                     ivLike.setTag(R.drawable.ic_vector_heart_stroke);
                     ivLike.setColorFilter(Color.GRAY);
                 }
             };
+            if (v.getId()==ivProfileImage.getId()) {
+                Intent intent = new Intent(context, UserPage.class);
+                intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+                context.startActivity(intent);
+            }
             if (v.getId()==ivRetweet.getId()) {
                 if ((Integer) v.getTag() == R.drawable.ic_vector_retweet_stroke) {
                     client.reTweet(tweet.id, new JsonHttpResponseHandler() {
@@ -204,7 +211,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                             Log.i("check",response);
                         }
                     });
-                    ivRetweet.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_vector_retweet));
+                    ivRetweet.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_vector_retweet_a));
                     ivRetweet.setTag(R.drawable.ic_vector_retweet);
                     ivRetweet.setColorFilter(Color.GREEN);
                 }
@@ -220,7 +227,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                             Log.i("check",response);
                         }
                     });
-                    ivRetweet.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_vector_retweet_stroke));
+                    ivRetweet.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_vector_retweet_stroke_a));
                     ivRetweet.setTag(R.drawable.ic_vector_retweet_stroke);
                     ivRetweet.setColorFilter(Color.GRAY);
                 }
@@ -248,6 +255,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
         public void bind(Tweet tweet) {
             tvBody.setText(tweet.body);
+            rtCount.setText(String.valueOf(tweet.retweetCount));
             tvScreenName.setText("@"+tweet.user.screenName);
             tvName.setText(tweet.user.name);
             Glide.with(context).load(tweet.user.publicImageURL).circleCrop().into(ivProfileImage);

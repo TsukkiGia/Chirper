@@ -31,7 +31,6 @@ public class Tweet {
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.id = jsonObject.getLong("id");
         tweet.retweetCount = jsonObject.getLong("retweet_count");
-        //tweet.likeCount = jsonObject.getLong("favourites_count");
         try {
             tweet.mediaURL = jsonObject.getJSONObject("entities").getJSONArray("media").getJSONObject(0).getString("media_url_https");
         } catch (JSONException e) {

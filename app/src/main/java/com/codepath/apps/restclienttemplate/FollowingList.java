@@ -7,9 +7,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 
 import com.codepath.apps.restclienttemplate.UsersAdapter;
 import com.codepath.apps.restclienttemplate.databinding.ActivityFollowerListBinding;
@@ -33,6 +35,8 @@ public class FollowingList extends AppCompatActivity {
     UsersAdapter adapter;
     List<User> users;
     TwitterClient client;
+    Tweet tweet;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +44,9 @@ public class FollowingList extends AppCompatActivity {
         users = new ArrayList<>();
         ActivityFollowingListBinding act_following = ActivityFollowingListBinding.inflate(getLayoutInflater());
         setContentView(act_following.getRoot());
-        final Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
+        toolbar = act_following.toolbar;
+        setSupportActionBar(toolbar);
+        tweet = Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
         rvFollowing = act_following.rvFollowing;
         adapter = new UsersAdapter(this,users);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -50,6 +56,16 @@ public class FollowingList extends AppCompatActivity {
         DividerItemDecoration decor =  new DividerItemDecoration(rvFollowing.getContext(),layoutManager.getOrientation());
         rvFollowing.addItemDecoration(decor);
         client = TwitterApp.getRestClient(this);
+    }
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        populateFollowing();
+        menu.getItem(1).setVisible(false);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    private void populateFollowing() {
         client.getFollowing(tweet.user.screenName,new JsonHttpResponseHandler() {
 
             @Override

@@ -15,7 +15,7 @@
         android:clickable="true"
         android:icon="@drawable/ic_vector_compose"
         android:title="Compose"
-        android:visible="true"
+        android:visible="false"
         android:iconTint="#FFFFFF"
         app:showAsAction="always" />
 

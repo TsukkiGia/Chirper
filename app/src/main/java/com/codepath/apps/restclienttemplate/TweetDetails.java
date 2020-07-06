@@ -32,7 +32,6 @@ public class TweetDetails extends AppCompatActivity {
     ImageView ivReply;
     ImageView ivExit;
     TextView tvRT;
-    TextView tvLikes;
     TwitterClient client;
 
     @Override
@@ -46,7 +45,6 @@ public class TweetDetails extends AppCompatActivity {
         client = TwitterApp.getRestClient(this);
         tvBody = act_det.tvBody;
         tvName = act_det.tvName;
-        tvLikes = act_det.tvLike;
         tvRT = act_det.tvRT;
         tvDisplayName = act_det.tvDisplayName;
         ivProfileImage = act_det.ivProfileImage;
@@ -81,7 +79,6 @@ public class TweetDetails extends AppCompatActivity {
             ivRetweet.setColorFilter(Color.GREEN);
         }
         ivReply = act_det.ivReply;
-        tvLikes.setText(String.valueOf(tweet.likeCount));
         tvRT.setText(String.valueOf(tweet.retweetCount));
         tvBody.setText(tweet.body);
         tvName.setText(tweet.user.name);
@@ -180,7 +177,8 @@ public class TweetDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TweetDetails.this, ComposeActivity.class);
-                startActivityForResult(intent,REQUEST_CODE);
+                intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+                startActivity(intent);
             }
         });
     }

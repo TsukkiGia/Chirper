@@ -35,6 +35,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
+        android:clickable="true"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
@@ -75,10 +76,10 @@
 
     <TextView
         android:id="@+id/tvTimeSince"
-        android:layout_width="208dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="137dp"
         android:layout_marginEnd="10dp"
         android:layout_toEndOf="@+id/tvName"
         android:gravity="right"
@@ -93,7 +94,7 @@
         android:layout_below="@+id/ivMedia"
         android:layout_alignParentStart="true"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:tint="#888888"
         app:srcCompat="@drawable/reply" />
 
@@ -103,11 +104,11 @@
         android:layout_height="17dp"
         android:layout_below="@+id/ivMedia"
         android:layout_marginStart="135dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="0dp"
         android:layout_toEndOf="@+id/ivReply"
         android:tint="#888888"
-        app:srcCompat="@drawable/ic_vector_retweet_stroke" />
+        app:srcCompat="@drawable/ic_vector_retweet_stroke_a" />
 
     <ImageView
         android:id="@+id/ivLike"
@@ -115,10 +116,20 @@
         android:layout_height="17dp"
         android:layout_below="@+id/ivMedia"
         android:layout_alignEnd="@+id/tvBody"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="0dp"
         android:tint="#888888"
-        app:srcCompat="@drawable/ic_vector_heart_stroke" />
+        app:srcCompat="@drawable/ic_vector_heart_stroke_a" />
+
+    <TextView
+        android:id="@+id/rtCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivMedia"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/ivRetweet"
+        tools:text="1200" />
 
 
 </RelativeLayout>

@@ -107,8 +107,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHomeTweets"
         android:layout_width="match_parent"
-        android:layout_height="458dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="273dp" />
+        android:layout_height="478dp"
+        android:layout_below="@+id/tvFollowerText"
+        android:layout_marginTop="10dp" />
 
 </RelativeLayout>

@@ -91,7 +91,6 @@ public class TimelineActivity extends AppCompatActivity {
         rvTweets.addOnScrollListener(scrollListener);
         toolbar = act_time.toolbar;
         setSupportActionBar(toolbar);
-
     }
 
     @Override

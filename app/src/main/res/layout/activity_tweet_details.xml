@@ -79,7 +79,7 @@
             android:layout_marginEnd="0dp"
             android:layout_toEndOf="@+id/ivReply"
             android:tint="@android:color/darker_gray"
-            app:srcCompat="@drawable/ic_vector_retweet_stroke" />
+            app:srcCompat="@drawable/ic_vector_retweet_stroke_a" />
 
         <ImageView
             android:id="@+id/ivLike"
@@ -90,7 +90,7 @@
             android:layout_marginTop="19dp"
             android:layout_marginEnd="30dp"
             android:tint="@android:color/darker_gray"
-            app:srcCompat="@drawable/ic_vector_heart_stroke" />
+            app:srcCompat="@drawable/ic_vector_heart_stroke_a" />
 
         <TextView
             android:id="@+id/tvName"
@@ -127,24 +127,13 @@
         <TextView
             android:id="@+id/tvRT"
             android:layout_width="wrap_content"
-            android:visibility="invisible"
+            android:visibility="visible"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ivMedia"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_toEndOf="@+id/ivRetweet"
             tools:text="1340" />
-
-        <TextView
-            android:id="@+id/tvLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:layout_below="@+id/ivMedia"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            tools:text="1000" />
 
     </RelativeLayout>
 

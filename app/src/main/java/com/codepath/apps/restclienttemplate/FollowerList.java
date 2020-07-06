@@ -2,12 +2,14 @@ package com.codepath.apps.restclienttemplate;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 
 import com.codepath.apps.restclienttemplate.databinding.ActivityFollowerListBinding;
 import com.codepath.apps.restclienttemplate.UsersAdapter;
@@ -30,16 +32,20 @@ public class FollowerList extends AppCompatActivity {
     UsersAdapter adapter;
     List<User> users;
     TwitterClient client;
+    Toolbar toolbar;
+    Tweet tweet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         users = new ArrayList<>();
-        final Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
+        tweet = Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
         ActivityFollowerListBinding act_follower = ActivityFollowerListBinding.inflate(getLayoutInflater());
         setContentView(act_follower.getRoot());
         rvFollowers = act_follower.rvFollowers;
         adapter = new UsersAdapter(this,users);
+        toolbar = act_follower.toolbar;
+        setSupportActionBar(toolbar);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rvFollowers.setLayoutManager(layoutManager);
         rvFollowers.setAdapter(adapter);
@@ -47,6 +53,16 @@ public class FollowerList extends AppCompatActivity {
         DividerItemDecoration decor =  new DividerItemDecoration(rvFollowers.getContext(),layoutManager.getOrientation());
         rvFollowers.addItemDecoration(decor);
         client = TwitterApp.getRestClient(this);
+    }
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        populateFollowers();
+        menu.getItem(1).setVisible(false);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    private void populateFollowers() {
         client.getFollowers(tweet.user.screenName,new JsonHttpResponseHandler() {
 
             @Override
@@ -60,10 +76,10 @@ public class FollowerList extends AppCompatActivity {
                     }
                     Log.i("test",userss.toString());
                     adapter.addAll(userss);
-                    }
+                }
                 catch (JSONException e) {
                     e.printStackTrace();
-                    }
+                }
             }
 
             @Override
