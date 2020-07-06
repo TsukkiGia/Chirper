@@ -114,6 +114,7 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("screen_name", "MagicJinnie7");
 		client.get(apiUrl, params, handler);
 	}
+	
 	public void getFollowers(String screen_name, JsonHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("followers/list.json");
 		// Can specify query string params directly or through RequestParams.
@@ -131,6 +132,7 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("count", 200);
 		client.get(apiUrl, params, handler);
 	}
+	
 	public void getTheTweets(String screen_name, JsonHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("statuses/user_timeline.json");
 		// Can specify query string params directly or through RequestParams.
