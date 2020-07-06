@@ -19,8 +19,6 @@ import org.parceler.Parcels;
 
 import okhttp3.Headers;
 
-import static com.codepath.apps.restclienttemplate.TimelineActivity.REQUEST_CODE;
-
 public class TweetDetails extends AppCompatActivity {
     ImageView ivProfileImage;
     TextView tvBody;

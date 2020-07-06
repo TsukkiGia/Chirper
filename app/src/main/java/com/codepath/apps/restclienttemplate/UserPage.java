@@ -83,7 +83,6 @@ public class UserPage extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
         tvFollowingNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,6 +108,7 @@ public class UserPage extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.e("user","onfailed",throwable);
             }
         });
     }

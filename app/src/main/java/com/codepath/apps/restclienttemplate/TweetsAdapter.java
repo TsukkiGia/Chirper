@@ -132,7 +132,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             try {
                 long time = sf.parse(rawJsonDate).getTime();
                 long now = System.currentTimeMillis();
-
                 final long diff = now - time;
                 if (diff < MINUTE_MILLIS) {
                     return "just now";

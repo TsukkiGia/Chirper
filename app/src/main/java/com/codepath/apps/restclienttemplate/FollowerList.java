@@ -1,6 +1,5 @@
 package com.codepath.apps.restclienttemplate;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -19,7 +18,6 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
@@ -65,7 +63,6 @@ public class FollowerList extends AppCompatActivity {
 
     private void populateFollowers() {
         client.getFollowers(tweet.user.screenName,new JsonHttpResponseHandler() {
-
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 try {

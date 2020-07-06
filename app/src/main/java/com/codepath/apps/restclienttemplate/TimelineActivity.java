@@ -15,8 +15,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.databinding.ActivityTimelineBinding;
 import com.codepath.apps.restclienttemplate.models.EditNameDialogFragment;
@@ -159,7 +157,6 @@ public class TimelineActivity extends AppCompatActivity {
                     adapter.clear();
                     adapter.addAll(Tweet.fromJsonArray(jsonArray));
                     swipeContainer.setRefreshing(false);
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -170,16 +167,6 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.e(TAG,"failed",throwable);
             }
         });
-    }
-    
-    public void showProgressBar() {
-        // Show progress item
-        toolbar.getMenu().getItem(0).setVisible(true);
-    }
-
-    public void hideProgressBar() {
-        // Hide progress item
-        toolbar.getMenu().getItem(0).setVisible(false);
     }
 
     private void showEditDialog() {

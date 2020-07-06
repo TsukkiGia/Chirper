@@ -46,7 +46,6 @@ public class ComposeActivity extends AppCompatActivity {
         tvDisplayName = act_comp.tvDisplayName;
         client = TwitterApp.getRestClient(this);
         client.myInfo(new JsonHttpResponseHandler() {
-
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 try {
@@ -65,11 +64,9 @@ public class ComposeActivity extends AppCompatActivity {
                 Log.d(TAG, "onFailure");
             }
         });
-
         final Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
         etCompose.setText(String.format("@%s ", tweet.user.screenName));
         //set onclick listener to the tweet button
-
         btnTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,10 +79,8 @@ public class ComposeActivity extends AppCompatActivity {
                     Toast.makeText(ComposeActivity.this,"Sorry, your tweet is too long",Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 //Make a call to the Twitter API to publish
                 client.replyTweet(tweetContent, tweet.id, new JsonHttpResponseHandler() {
-                    
                     @Override
                     public void onSuccess(int statusCode, Headers headers, JSON json) {
                         Log.i(TAG,"onsuccess");
